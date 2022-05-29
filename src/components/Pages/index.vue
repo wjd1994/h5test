@@ -1,7 +1,11 @@
 <template>
 <div class="index">
     <div class="search" style="margin-top:1rem">
-        <el-input v-model="searchdata" placeholder="请输入物品"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input>
+        <el-input v-model="searchdata" placeholder="请输入搜索内容"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input>
+    </div>
+    <div class="itemtitle"> 
+        <span style="font-size:1rem"><i class="el-icon-s-goods" style="color:aqua"></i>数字藏品</span>
+        <span style="font-size:0.5rem" @click="switch_to_changpin">查看更多<i class="el-icon-right" style="color:gray"></i></span>
     </div>
     <div v-for="(item,index) in itemdatas" :key="index" class="item">
         <el-card :body-style="{ padding: '0.1rem' }">
@@ -45,25 +49,7 @@ export default{
                     autor: 'Jack',
                     price: "49.0",
                     imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/fdb29649f966b9421a8036779df358aa.gif"     
-                },
-                {
-                    name: '太空基地',
-                    autor: 'tom',
-                    price: "49.0",
-                    imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/e2f2bee01c7b4d12841e055b9ef6f5b8.gif"     
-                },
-                {
-                    name: 'test',
-                    autor: 'tom',
-                    price: "49.0",
-                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
-                },
-                {
-                    name: 'test',
-                    autor: 'tom',
-                    price: "49.0",
-                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
-                },
+                }
             ]
         }
     },
@@ -74,6 +60,9 @@ export default{
     methods: {
         get_jsondata() {
             
+        },
+        switch_to_changpin() {
+            this.$router.push("/changpin");
         },
         get_data(){
             this.$axios.get("test.db", {responseType: 'arraybuffer'})
@@ -146,6 +135,11 @@ export default{
 </script>
 
 <style scopes lang="less">
+.itemtitle {
+    margin-top:1rem;
+    display:flex;
+    justify-content: space-between;
+}
 .item {
     margin-top:0.8rem;
     

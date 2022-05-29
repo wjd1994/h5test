@@ -66,7 +66,41 @@ export default {
   
 
   watch:{
-    
+     $route(to){
+       if(to.path=='/index'){
+         var index = 0;
+         for(var i=0;i<this.menuitem.length;i++){
+            this.menuitem[i].isactive = false;
+          }
+          this.menuitem[index].isactive = true;
+       }
+       else if(to.path=='/changpin'){
+         var index = 1;
+         for(var i=0;i<this.menuitem.length;i++){
+            this.menuitem[i].isactive = false;
+          }
+          this.menuitem[index].isactive = true;
+       }
+       else if(to.path=='/manghe'){
+         var index = 2;
+         for(var i=0;i<this.menuitem.length;i++){
+            this.menuitem[i].isactive = false;
+          }
+          this.menuitem[index].isactive = true;
+       }
+       else if(to.path=='/user'){
+         var index = 3;
+         for(var i=0;i<this.menuitem.length;i++){
+            this.menuitem[i].isactive = false;
+          }
+          this.menuitem[index].isactive = true;
+       }
+       else {
+         for(var i=0;i<this.menuitem.length;i++){
+            this.menuitem[i].isactive = false;
+          }
+       }
+     }
 
   },
   components: {
@@ -75,10 +109,10 @@ export default {
   methods:{
    select_menu(index){
      
-     for(var i=0;i<this.menuitem.length;i++){
-       this.menuitem[i].isactive = false;
-     }
-     this.menuitem[index].isactive = true;
+    //  for(var i=0;i<this.menuitem.length;i++){
+    //    this.menuitem[i].isactive = false;
+    //  }
+    //  this.menuitem[index].isactive = true;
      this.$router.push(this.menuitem[index].path);
    }
 
