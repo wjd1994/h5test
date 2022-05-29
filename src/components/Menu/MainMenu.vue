@@ -1,25 +1,15 @@
 <template>
   <div class="mainmenu">
-    <div>
-      <router-view style="padding-bottom: 4rem"></router-view>
+    <div style="width:100%;">
+      <div style="width:90%;margin-left:5%;">
+        <router-view style="padding-bottom: 4rem" ></router-view>
+      </div>
     </div>
     <div class="footmenu">
-      <router-link class="menuitem" to="/index">
-        <i class="el-icon-house"></i>
-        <span >首页</span>
-      </router-link>
-      <router-link class="menuitem" to="/index">
-        <i class="el-icon-box"></i>
-        <span >藏品</span>
-      </router-link>
-      <router-link class="menuitem" to="/index">
-        <i class="el-icon-present"></i>
-        <span >盲盒</span>
-      </router-link>
-      <router-link class="menuitem" to="/index">
-        <i class="el-icon-user"></i>
-        <span >我的</span>
-      </router-link>
+      <span v-for="(menu,i) in menuitem" @click="select_menu(i)" :key="i" :class="{'menuitemactive':menu.isactive,'menuitem':!menu.isactive}">
+        <i :class="menu.icon"></i>
+        <span >{{menu.name}}</span>
+      </span>
     </div>
   </div>
 
@@ -29,8 +19,33 @@ export default {
   name: 'MainMenu',
   data(){
     return {
-     
-       
+      menuitem:[
+        {
+          isactive: true,
+          name: '首页',
+          icon: 'el-icon-house',
+          path: '/index'
+        },
+        {
+          isactive: false,
+          name: '藏品',
+          icon: 'el-icon-box',
+          path: '/changpin'
+        },
+        {
+          isactive: false,
+          name: '盲盒',
+          icon: 'el-icon-present',
+          path: '/manghe'
+        },
+        {
+          isactive: false,
+          name: '我的',
+          icon: 'el-icon-user',
+          path: '/user'
+        }
+      ],
+       isactive:false
     }
   },
   props:[],
@@ -58,12 +73,19 @@ export default {
     
   },
   methods:{
-   
+   select_menu(index){
+     
+     for(var i=0;i<this.menuitem.length;i++){
+       this.menuitem[i].isactive = false;
+     }
+     this.menuitem[index].isactive = true;
+     this.$router.push(this.menuitem[index].path);
+   }
 
   }
 }
 </script>
-<style scoped>
+<style scoped lang="less">
 .footmenu{
   position: fixed;
   bottom:0px;
@@ -80,6 +102,7 @@ export default {
   text-align: center;
   text-decoration: none;
   
+  
   /* line-height:2.5rem; */
   display: flex;
   flex-direction: column;
@@ -95,6 +118,26 @@ export default {
   margin:0px;
   font-size:0.8rem;
   color:black;
+}
+.menuitemactive {
+  width:25%;
+  height:2.6rem;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  span {
+    padding:0px;
+    margin:0px;
+    font-size:0.8rem;
+    color:skyblue;
+  }
+  i {
+    padding:0px;
+    margin:0px;
+    font-size:1.2rem;
+    color:skyblue;
+  }
 }
 
 </style>
