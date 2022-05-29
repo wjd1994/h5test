@@ -5,9 +5,9 @@
     </div>
     <div class="itemtitle"> 
         <span style="font-size:1rem"><i class="el-icon-s-goods" style="color:aqua"></i>数字藏品</span>
-        <span style="font-size:0.5rem" @click="switch_to_changpin">查看更多<i class="el-icon-right" style="color:gray"></i></span>
+        <span style="font-size:0.8rem" @click="switch_to_changpin">查看更多<i class="el-icon-right" style="color:gray"></i></span>
     </div>
-    <div v-for="(item,index) in itemdatas" :key="index" class="item">
+    <div v-for="(item,index) in itemdatas" :key="index" class="item" @click="switch_changpindetail(item)">
         <el-card :body-style="{ padding: '0.1rem' }">
             <div class="showimg" >
                 <el-image class="img" :style="{width:imgwidth,height:imgwidth}" :src="item.imgurl" fit="fill"></el-image>
@@ -26,6 +26,13 @@
         </el-card>
         
     </div>
+    <div class="itemtitle"> 
+        <span style="font-size:1rem"><i class="el-icon-present" style="color:aquamarine"></i>盲盒</span>
+        <span style="font-size:0.8rem" @click="switch_to_manghe">查看更多<i class="el-icon-right" style="color:gray"></i></span>
+    </div>
+    <div class="mangheitem" style="margin-top:1rem;text-align:center">
+        暂无更多
+    </div>
      
 </div>
 </template>
@@ -42,14 +49,16 @@ export default{
                     name: '名古屋',
                     autor: '元宇宙出品',
                     price: "37.0元",
+                    path: "/changpindetail?changpin=0",
                     imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/edab89e92578af9b97dd71f62c074faa.gif"     
                 },
                 {
                     name: '世外桃源',
                     autor: 'Jack',
                     price: "49.0",
+                    path: "/changpindetail?changpin=1",
                     imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/fdb29649f966b9421a8036779df358aa.gif"     
-                }
+                },
             ]
         }
     },
@@ -63,6 +72,12 @@ export default{
         },
         switch_to_changpin() {
             this.$router.push("/changpin");
+        },
+        switch_to_manghe() {
+            this.$router.push("/manghe");
+        },
+        switch_changpindetail(item) {
+            this.$router.push(item.path+"&originurl=index");
         },
         get_data(){
             this.$axios.get("test.db", {responseType: 'arraybuffer'})

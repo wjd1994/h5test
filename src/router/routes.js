@@ -28,7 +28,13 @@ const routes=[
               name: 'user',
               meta:{title: '我的',index:0},
               component: ()=>import('../components/Pages/userpage.vue')
-            }
+            },
+            {
+              path: 'changpindetail',
+              name: 'changpindetail',
+              meta:{title: '藏品详情',index:0},
+              component: ()=>import('../components/Pages/changpindetail.vue')
+            },
           ]
       }
         
