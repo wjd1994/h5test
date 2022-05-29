@@ -47,10 +47,10 @@ export default{
                     imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/fdb29649f966b9421a8036779df358aa.gif"     
                 },
                 {
-                    name: 'test',
+                    name: '太空基地',
                     autor: 'tom',
                     price: "49.0",
-                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                    imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/e2f2bee01c7b4d12841e055b9ef6f5b8.gif"     
                 },
                 {
                     name: 'test',
