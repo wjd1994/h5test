@@ -5,7 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximun-scale=1,minimum-scale=1,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>logo.png">
-    <script src="sql-optimized.js"></script>
+    <script src="//imgcache.qq.com/qcloud/cloudbase-js-sdk/1.6.0/cloudbase.full.js"></script>
+    <script>
+      const app = cloudbase.init({
+        env: 'env-qnzjwkbt' // 您的环境id
+      })
+    </script>
+
+    <!-- <script src="sql-optimized.js"></script> -->
     <title>h5test</title>
     <style>
       html body{

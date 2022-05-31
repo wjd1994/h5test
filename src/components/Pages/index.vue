@@ -38,6 +38,7 @@
 </template>
 
 <script>
+
 export default{
     name: 'IndexPage',
     data(){
@@ -64,11 +65,22 @@ export default{
     },
     created(){
         // this.get_data();
-        this.get_jsondata();
+        // this.getenvdata();
     },
     methods: {
-        get_jsondata() {
-            
+        async getJsonp(){
+            const response = await this.$jsonp('http://env-qnzjwkbt-1256974394.ap-shanghai.app.tcloudbase.com/test',{
+                callbackQuery:'callbackParam', //一定要加这两个参数
+                callbackName:'jsonpCallback', //一定要加这两个参数,要不然会报错 导致代码阻塞
+            });
+            console.log(response);
+        },
+
+        getenvdata(){
+            // const cloudbase = require("@cloudbase/js-sdk");
+            // var app = cloudbase.init({
+            //     env: 'env-qnzjwkbt' 
+            // })
         },
         switch_to_changpin() {
             this.$router.push("/changpin");

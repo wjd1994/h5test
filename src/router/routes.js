@@ -35,6 +35,12 @@ const routes=[
               meta:{title: '藏品详情',index:0},
               component: ()=>import('../components/Pages/changpindetail.vue')
             },
+            {
+              path: 'setup',
+              name: 'setup',
+              meta:{title: '个人信息修改',index:0},
+              component: ()=>import('../components/Pages/setup.vue')
+            },
           ]
       }
         

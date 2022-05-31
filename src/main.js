@@ -19,8 +19,8 @@ import store from './store/store';
 // import initSqlJs from "sql.js"
 // Required to let webpack 4 know it needs to copy the wasm file to our assets
 // import sqlWasm from "!!url-loader?name=sql-wasm-[contenthash].wasm!sql.js/dist/sql-wasm.wasm";
-
-
+import { VueJsonp  } from 'vue-jsonp'
+Vue.use(VueJsonp)
 new Vue({
   router,
   store,
