@@ -87,6 +87,7 @@ export default {
             alert("保存成功")
         },
         unlogin() {
+            this.$store.commit('set_loginid','0')
             this.$router.push('/user');
         }
     }
