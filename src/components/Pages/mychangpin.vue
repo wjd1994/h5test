@@ -1,50 +1,48 @@
 <template>
-<div class="index">
-    <div class="search" style="margin-top:1rem">
-        <el-input v-model="searchdata" placeholder="请输入搜索内容"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input>
-    </div>
-    <div class="itemtitle"> 
-        <span style="font-size:1rem"><i class="el-icon-s-goods" style="color:aqua"></i>数字藏品</span>
-        <span style="font-size:0.8rem" @click="switch_to_changpin">查看更多<i class="el-icon-right" style="color:gray"></i></span>
-    </div>
-    <div v-for="(item,index) in itemdatas" :key="index" class="item" @click="switch_changpindetail(item)">
-        <el-card :body-style="{ padding: '0.1rem' }">
-            <div class="showimg" >
-                <el-image class="img" :style="{width:imgwidth,height:imgwidth}" :src="item.imgurl" fit="fill"></el-image>
-            </div>
-            <div style="padding: 1rem;">
-                <span>{{item.name}}</span>
-                <div class="autor">
-                    <span class="autortitle">作者</span>
-                    <span class="autorvalue">{{item.autor}}</span>
+<div class="mychangpin">
+    
+    <div class="content">
+        <div v-for="(item,index) in itemdatas" :key="index" class="item" @click="switch_changpindetail(item)">
+            <div class="itemcard">
+
+                <el-image class="img" :style="{width:imgwidth,height:imgheight}" :src="item.imgurl" fit="fill"></el-image>
+
+
+                <div style="margin-left: 1rem;" class="info">
+                    <span>{{item.name}}</span>
+                    <div>
+                        <div class="autor">
+                            <span class="autortitle">作者</span>
+                            <span class="autorvalue">{{item.autor}}</span>
+                        </div>
+                        <div class="price">
+                            <span class="pricetitle">价格</span>
+                            <span class="pricevalue">{{item.price}}</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="price">
-                    <span class="pricetitle">价格</span>
-                    <span class="pricevalue">{{item.price}}</span>
-                </div>
             </div>
-        </el-card>
-        
+            
+        </div>
     </div>
-    <div class="itemtitle"> 
-        <span style="font-size:1rem"><i class="el-icon-present" style="color:aquamarine"></i>盲盒</span>
-        <span style="font-size:0.8rem" @click="switch_to_manghe">查看更多<i class="el-icon-right" style="color:gray"></i></span>
+
+    <div class="header" style="position: fixed;left:0rem;top:-1rem;height: 3rem;width:100%;background-color: white;">
+            <el-page-header style="position:absolute;left:0px;margin-top:0.5rem;margin-left:0.8rem" class="elpageheader"  @back="goBack" content="我的藏品">
+            </el-page-header>
     </div>
-    <div class="mangheitem" style="margin-top:1rem;text-align:center">
-        暂无更多
-    </div>
+
      
 </div>
 </template>
 
 <script>
-
 export default{
-    name: 'IndexPage',
+    name: 'mychangpin',
     data(){
         return {
             searchdata: "",
-            imgwidth:window.innerWidth*4/5+"px",
+            imgwidth:window.innerWidth*1/3+"px",
+            imgheight:Math.max(window.innerWidth*1/3-40,window.innerHeight/7)+"px",
             itemdatas:[
                 {
                     name: '名古屋',
@@ -60,36 +58,64 @@ export default{
                     path: "/changpindetail?changpin=1",
                     imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/fdb29649f966b9421a8036779df358aa.gif"     
                 },
+                {
+                    name: '太空基地',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=2",
+                    imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/e2f2bee01c7b4d12841e055b9ef6f5b8.gif"     
+                },
+                {
+                    name: 'test',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                },
+                {
+                    name: 'test',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                },
+                {
+                    name: 'test',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                },
+                {
+                    name: 'test',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                },
+                {
+                    name: 'test',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                },
             ]
         }
     },
     created(){
         // this.get_data();
-        // this.getenvdata();
+        this.get_jsondata();
     },
     methods: {
-        async getJsonp(){
-            const response = await this.$jsonp('http://env-qnzjwkbt-1256974394.ap-shanghai.app.tcloudbase.com/test',{
-                callbackQuery:'callbackParam', //一定要加这两个参数
-                callbackName:'jsonpCallback', //一定要加这两个参数,要不然会报错 导致代码阻塞
-            });
-            console.log(response);
+        goBack() {
+            this.$router.push('/user')
         },
-
-        getenvdata(){
-            // const cloudbase = require("@cloudbase/js-sdk");
-            // var app = cloudbase.init({
-            //     env: 'env-qnzjwkbt' 
-            // })
-        },
-        switch_to_changpin() {
-            this.$router.push("/changpin");
-        },
-        switch_to_manghe() {
-            this.$router.push("/manghe");
+        get_jsondata() {
+            
         },
         switch_changpindetail(item) {
-            this.$router.push(item.path+"&originurl=index");
+            this.$router.push(item.path+"&originurl=changpin");
         },
         get_data(){
             this.$axios.get("test.db", {responseType: 'arraybuffer'})
@@ -162,20 +188,35 @@ export default{
 </script>
 
 <style lang="less" scoped>
-.itemtitle {
-    margin-top:1rem;
-    display:flex;
-    justify-content: space-between;
+.content {
+    margin-top:4rem;
 }
 .item {
     margin-top:0.8rem;
     
+    
 }
-.showimg {
-    text-align: center;
-    .img {
-        border-radius: 7px;
-    }
+.itemcard {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #EBEEF5;
+    background-color: #FFF;
+    color: #303133;
+    transition: .3s;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    border-radius: 4px;
+    
+}
+.img {
+    border-radius: 4px;
+        
+}
+
+.info {
+    width:70%;
+    display:flex;
+    flex-direction: column;
+    justify-content:space-between;
 }
 .autor {
     margin-top:0.1rem;

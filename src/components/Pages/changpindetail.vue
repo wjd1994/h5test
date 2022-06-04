@@ -1,9 +1,6 @@
 <template>
     <div class="changpindetail">
-        <div class="header" style="top:0rem;position: fixed;height: 2rem;background-color: white;">
-            <el-page-header class="elpageheader" style="margin-top:0.5rem;" @back="goBack" content="商品详情">
-            </el-page-header>
-        </div>
+        
         <div class="content">
             <div class="proinfo">
                 <div class="title">
@@ -28,6 +25,10 @@
                 <p style="font-size:0.9rem">{{proinfodata.detail}}</p>
             </div>
         </div>
+        <div class="header" style="position: fixed;left:0rem;top:-1rem;height: 3rem;width:100%;background-color: white;">
+            <el-page-header style="position:absolute;left:0px;margin-top:0.5rem" class="elpageheader"  @back="goBack" content="商品详情">
+            </el-page-header>
+        </div>
     </div>
 </template>
 <script>
@@ -43,7 +44,7 @@ export default {
                 autor: 'tom',
                 price: "49.0",
                 imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-                detail: "测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例"
+                detail: "测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例"
             }
         }
     },

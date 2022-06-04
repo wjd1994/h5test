@@ -1,25 +1,28 @@
 <template>
-<div class="index">
+<div class="changpin">
     <div class="search" style="margin-top:1rem">
         <el-input v-model="searchdata" placeholder="请输入物品"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input>
     </div>
     <div v-for="(item,index) in itemdatas" :key="index" class="item" @click="switch_changpindetail(item)">
-        <el-card :body-style="{ padding: '0.1rem' }">
-            <div class="showimg" >
-                <el-image class="img" :style="{width:imgwidth,height:imgwidth}" :src="item.imgurl" fit="fill"></el-image>
-            </div>
-            <div style="padding: 1rem;">
+        <div class="itemcard">
+
+            <el-image class="img" :style="{width:imgwidth,height:imgheight}" :src="item.imgurl" fit="fill"></el-image>
+
+
+            <div style="margin-left: 1rem;" class="info">
                 <span>{{item.name}}</span>
-                <div class="autor">
-                    <span class="autortitle">作者</span>
-                    <span class="autorvalue">{{item.autor}}</span>
-                </div>
-                <div class="price">
-                    <span class="pricetitle">价格</span>
-                    <span class="pricevalue">{{item.price}}</span>
+                <div>
+                    <div class="autor">
+                        <span class="autortitle">作者</span>
+                        <span class="autorvalue">{{item.autor}}</span>
+                    </div>
+                    <div class="price">
+                        <span class="pricetitle">价格</span>
+                        <span class="pricevalue">{{item.price}}</span>
+                    </div>
                 </div>
             </div>
-        </el-card>
+        </div>
         
     </div>
      
@@ -32,7 +35,8 @@ export default{
     data(){
         return {
             searchdata: "",
-            imgwidth:window.innerWidth*4/5+"px",
+            imgwidth:window.innerWidth*1/3+"px",
+            imgheight:Math.max(window.innerWidth*1/3-40,window.innerHeight/7)+"px",
             itemdatas:[
                 {
                     name: '名古屋',
@@ -153,16 +157,33 @@ export default{
 }
 </script>
 
-<style scopes lang="less">
+<style lang="less" scoped>
 .item {
     margin-top:0.8rem;
     
+    
 }
-.showimg {
-    text-align: center;
-    .img {
-        border-radius: 7px;
-    }
+.itemcard {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #EBEEF5;
+    background-color: #FFF;
+    color: #303133;
+    transition: .3s;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    border-radius: 4px;
+    
+}
+.img {
+    border-radius: 4px;
+        
+}
+
+.info {
+    width:70%;
+    display:flex;
+    flex-direction: column;
+    justify-content:space-between;
 }
 .autor {
     margin-top:0.1rem;

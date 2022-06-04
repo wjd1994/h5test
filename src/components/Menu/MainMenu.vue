@@ -28,7 +28,7 @@ export default {
         },
         {
           isactive: false,
-          name: '藏品',
+          name: '市场',
           icon: 'el-icon-box',
           path: '/changpin'
         },

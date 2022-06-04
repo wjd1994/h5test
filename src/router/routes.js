@@ -41,6 +41,30 @@ const routes=[
               meta:{title: '个人信息修改',index:0},
               component: ()=>import('../components/Pages/setup.vue')
             },
+            {
+              path: 'shimin',
+              name: 'shimin',
+              meta:{title: '实名认证',index:0},
+              component: ()=>import('../components/Pages/shimin.vue')
+            },
+            {
+              path: 'order',
+              name: 'order',
+              meta:{title: '订单',index:0},
+              component: ()=>import('../components/Pages/order.vue')
+            },
+            {
+              path: 'zhichan',
+              name: 'zhichan',
+              meta:{title: '资产',index:0},
+              component: ()=>import('../components/Pages/zhichan.vue')
+            },
+            {
+              path: 'mychangpin',
+              name: 'mychangpin',
+              meta:{title: '我的藏品',index:0},
+              component: ()=>import('../components/Pages/mychangpin.vue')
+            },
           ]
       }
         
