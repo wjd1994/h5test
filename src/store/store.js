@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state:{
         suitePath: "",
-        login_id: "0"
+        login_id: "0",
+        login_pwd: "",
        
     },
     mutations:{
@@ -15,6 +16,9 @@ export default new Vuex.Store({
         },
         set_loginid(state,value) {
             state.login_id = value
+        },
+        set_loginpwd(state,value) {
+            state.login_pwd = value
         }
     }
 })

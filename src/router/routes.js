@@ -65,6 +65,18 @@ const routes=[
               meta:{title: '我的藏品',index:0},
               component: ()=>import('../components/Pages/mychangpin.vue')
             },
+            {
+              path: 'mymanghe',
+              name: 'mymanghe',
+              meta:{title: '我的盲盒',index:0},
+              component: ()=>import('../components/Pages/mymanghe.vue')
+            },
+            {
+              path: 'register',
+              name: 'register',
+              meta:{title: '注册',index:0},
+              component: ()=>import('../components/Pages/register.vue')
+            },
           ]
       }
         

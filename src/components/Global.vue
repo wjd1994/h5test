@@ -1,6 +1,6 @@
 <script>
 
-const serverSrc = "http://10.206.64.161:8000"
+const serverSrc = "http://162.14.117.192:8080"
 export default {
     serverSrc,
 }

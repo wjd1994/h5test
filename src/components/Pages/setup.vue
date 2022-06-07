@@ -49,24 +49,33 @@ export default {
         return {
             is_mod_flag:false,
             personinfo: {
-                name: 'Jack',
-                phone: '13123429876',
+                name: '',
+                phone: '',
             },
             personinfo1: {
-                name: 'Jack',
-                phone: '13123429876',
+                name: '',
+                phone: '',
             },
             nameFormVisible: false,
         }
     },
     created() {
-        
-        this.personinfo = {
-                name: 'Jack',
-                phone: '13123429876',
-            }
+        this.get_userinfo();
     },
     methods: {
+        get_userinfo() {
+            var _this = this;
+            this.$axios.post(this.GLOBAL.serverSrc+"/getuserinfo_basic",
+                {"phone":_this.$store.state.login_id}
+            ).then(function(res){
+               console.log(res.data);
+               _this.personinfo = res.data;
+               _this.personinfo['pwd'] = _this.$store.state.login_pwd;
+               _this.personinfo1 = _this.personinfo;
+            }).catch((err)=>{
+                console.log(err)
+            })
+        },
         goBack() {      
             this.$router.push("/user")
         },
@@ -84,7 +93,17 @@ export default {
         },
         sumbit_personinfo() {
             this.is_mod_flag = false;
-            alert("保存成功")
+            this.$axios.post(this.GLOBAL.serverSrc+"/saveuserinfobasic",
+                this.personinfo
+            ).then(function(res){
+               console.log(res.data);
+               if(res.data=='success'){
+                   alert("保存成功");
+               }
+
+            }).catch((err)=>{
+                console.log(err)
+            })
         },
         unlogin() {
             this.$store.commit('set_loginid','0')

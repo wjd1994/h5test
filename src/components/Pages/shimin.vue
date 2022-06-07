@@ -7,7 +7,7 @@
         <div class="content">
             <div class="name" @click="shiminFormVisible=true">
                 <p>真实姓名</p>
-                <p>{{personinfo.name}}<i class="el-icon-arrow-right" ></i></p>
+                <p>{{personinfo.realname}}<i class="el-icon-arrow-right" ></i></p>
             </div>
              <div class="idnum" @click="shiminFormVisible=true">
                 <p>身份证号</p>
@@ -24,7 +24,7 @@
         <el-dialog title="实名认证信息"  width="90%" :visible.sync="shiminFormVisible" :close-on-click-modal="false">
             <el-form :model="personinfo1">
                 <el-form-item fixed label="输入真实姓名：" label-width="8rem">
-                    <el-input v-model="personinfo1.name" autocomplete="off"></el-input>
+                    <el-input v-model="personinfo1.realname" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item fixed label="输入身份证号：" label-width="8rem">
                     <el-input v-model="personinfo1.idnum" autocomplete="off"></el-input>
@@ -50,19 +50,38 @@ export default {
         return {
             is_mod_flag:false,
             personinfo: {
-                name: 'Jack',
-                idnum: '511843188411258943',
-                cardnum: '621443528954'
+                realname: '',
+                idnum: '',
+                cardnum: ''
             },
             personinfo1: {
-                name: 'Jack',
-                idnum: '511843188411258943',
-                cardnum: '621443528954'
+                realname: '',
+                idnum: '',
+                cardnum: ''
             },
             shiminFormVisible: false,
         }
     },
+    created() {
+        this.get_userinfo();
+    },
     methods: {
+         get_userinfo() {
+            var _this = this;
+            this.$axios.post(this.GLOBAL.serverSrc+"/getalluserinfo",
+                {
+                    "phone":_this.$store.state.login_id,
+                    "pwd": _this.$store.state.login_pwd
+                
+                }
+            ).then(function(res){
+               console.log(res.data);
+               _this.personinfo = res.data;
+               _this.personinfo1 = _this.personinfo;
+            }).catch((err)=>{
+                console.log(err)
+            })
+        },
         goBack() {
             if(this.is_mod_flag==true){
                 var x = confirm("修改内容未保存提交，确定退出？");
@@ -102,7 +121,17 @@ export default {
         },
         sumbit_personinfo() {
             this.is_mod_flag = false;
-            alert("保存成功")
+            this.$axios.post(this.GLOBAL.serverSrc+"/saveuserinfoshimin",
+                this.personinfo
+            ).then(function(res){
+               console.log(res.data);
+               if(res.data=='success'){
+                   alert("保存成功");
+               }
+
+            }).catch((err)=>{
+                console.log(err)
+            })
         }
     }
 }

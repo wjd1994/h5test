@@ -1,11 +1,6 @@
 <template>
 <div class="index">
-    <div class="search" style="margin-top:1rem">
-        <el-input v-model="searchdata" placeholder="请输入搜索内容"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input>
-    </div>
-    <div class="itemtitle"> 
-        <span style="font-size:1rem"><i class="el-icon-present" style="color:aqua"></i>盲盒</span>
-    </div>
+
     <div v-for="(item,index) in changpindatas" :key="index" class="item" @click="switch_changpindetail(item)">
         <el-card :body-style="{ padding: '0.1rem' }">
             <div class="showimg" >
@@ -26,9 +21,14 @@
         
     </div>
    
-    <div class="mangheitem" style="margin-top:1rem;text-align:center">
+    <div class="mangheitem" style="margin-top:5rem;text-align:center">
         暂无更多
     </div>
+     <div class="header" style="position: fixed;left:0rem;top:-1rem;height: 3rem;width:100%;background-color: white;">
+            <el-page-header style="position:absolute;left:0px;margin-top:0.5rem;margin-left:0.8rem" class="elpageheader"  @back="goBack" content="我的盲盒">
+            </el-page-header>
+    </div>
+
      
 </div>
 </template>
@@ -36,19 +36,13 @@
 <script>
 
 export default{
-    name: 'MangHe',
+    name: 'MyManghe',
     data(){
         return {
             searchdata: "",
             imgwidth:window.innerWidth*4/5+"px",
             changpindatas:[
-                {
-                    name: '战机',
-                    autor: '元宇宙出品',
-                    price: "待售",
-                    path: "/changpindetail?changpin=0",
-                    imgurl: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimages.9k9k.com%2Fm%2Fappimg%2F202109%2F2616225944z2.png&refer=http%3A%2F%2Fimages.9k9k.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1657105565&t=a40e4393fa45ff7a48277a890a6891e0"     
-                },
+                
             ]
         }
     },
@@ -56,6 +50,9 @@ export default{
         // this.get_indexchangpin_data();
     },
     methods: {
+         goBack() {
+            this.$router.push('/user')
+        },
         get_indexchangpin_data() {
             var vm = this;
             this.$axios.post(this.GLOBAL.serverSrc+"/getindexchangpin",

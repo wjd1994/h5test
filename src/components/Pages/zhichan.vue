@@ -43,7 +43,7 @@ export default {
     name: 'zhichan',
     data() {
         return {
-            money: 100.34,
+            money: 0,
             chongzhiformvisible: false,
             tixianformvisible: false,
             chongzhiinfo: {
@@ -54,7 +54,24 @@ export default {
             }
         }
     },
+    created() {
+        this.get_reducemoney()
+    },
     methods: {
+        get_reducemoney() {
+            var _this = this;
+            this.$axios.post(this.GLOBAL.serverSrc+"/getreducemoney",
+                {
+                    "phone":_this.$store.state.login_id
+                }
+            ).then(function(res){
+               console.log(res.data);
+               _this.money = res.data.reducemoney;
+               
+            }).catch((err)=>{
+                console.log(err)
+            })
+        },
         goBack() {      
             this.$router.push("/user")
         },

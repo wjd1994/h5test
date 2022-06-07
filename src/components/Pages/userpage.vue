@@ -28,7 +28,7 @@
                 <i class="el-icon-box"></i>
                 <span style="font-size:0.7rem">我的藏品</span>
             </div>
-            <div class="manghe" style="font-size:1.5rem;color:purple;display:flex;flex-direction: column;justify-content: center;align-items: center;">
+            <div @click="enter_mymanghe" class="manghe" style="font-size:1.5rem;color:purple;display:flex;flex-direction: column;justify-content: center;align-items: center;">
                 <i class="el-icon-present"></i>
                 <span style="font-size:0.7rem">我的盲盒</span>
             </div>
@@ -68,21 +68,31 @@
     <div class="notloginuserpage" v-else>
         <div class="username" style="margin-top:10rem;display:flex;flex-direction:row;justify-content: center;">
             <p style="width:4rem">用户名:</p>
-            <el-input placeholder="请输入手机号" v-model="login_info.name" style="width:15rem;margin-left:1rem;"></el-input>
+            <el-input placeholder="请输入手机号" v-model="login_info.phone" style="width:15rem;margin-left:1rem;"></el-input>
         </div>
         <div class="psw" style="margin-top:1rem;display:flex;flex-direction:row;justify-content: center;">
             <p style="width:4rem">密码:</p>
-            <el-input placeholder="请输入密码" v-model="login_info.psw" style="width:15rem;margin-left:1rem;"></el-input>
+            <el-input placeholder="请输入密码" v-model="login_info.pwd" style="width:15rem;margin-left:1rem;"></el-input>
         </div>
         <div class="loginbtn" style="text-align:center;margin-top:1rem;">
             <el-button type="primary" @click="login">登录</el-button>
-            <el-button type="primary" @click="register">注册</el-button>
+            <el-button type="primary" @click="enter_register">注册</el-button>
         </div>
         <div class="rember" style="position:relative">
-            <p style="font-size:0.5rem;color:blue;position:absolute;right:0px;">忘记密码</p>
+            <p @click="mimaVisible=true" style="font-size:0.5rem;color:blue;position:absolute;right:0px;">忘记密码?</p>
         </div>
-        
+      
     </div>
+        <el-dialog title="忘记密码"  width="90%" :visible.sync="mimaVisible" :close-on-click-modal="false">
+                <div class="info" >
+                    <p>添加下面客服QQ找回密码</p>
+                    <p>QQ号：98989898</p>
+                </div>
+
+                <div slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="mimaVisible=false">确 定</el-button>
+                </div>
+        </el-dialog> 
 
 
 </div>
@@ -95,24 +105,28 @@ export default{
         return {
             is_login:false,
             login_info:{
-                name: '',
-                psw: ''
+                phone: '',
+                pwd: ''
             },
             userinfo: {
-                avatarurl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-                name: "Jack"
+                avatarurl: "",
+                name: ""
             },
             aboutVisible: false,
             kefuVisible:false,
+            mimaVisible:false,
+            password:'',
             
         }
     },
     created() {
         if(this.$store.state.login_id=='0') {
-            this.is_login = false
+            this.is_login = false;
         }
         else {
-            this.is_login = true
+            this.is_login = true;
+            this.get_userinfo();
+
         }
     },
     updated(){
@@ -131,14 +145,44 @@ export default{
         enter_mychangpin() {
             this.$router.push('/mychangpin')
         },
-        login() {
-            this.$store.commit('set_loginid',this.login_info.name)
-
-            this.is_login = true;
+        enter_mymanghe() {
+            this.$router.push('/mymanghe')
         },
-        register() {
-
-        }
+        login() {
+            var _this = this;
+            this.$axios.post(this.GLOBAL.serverSrc+"/login",
+                _this.login_info
+            ).then(function(res){
+               console.log(res.data);
+               if(res.data.length!=0){
+                _this.$store.commit('set_loginid',_this.login_info.phone)
+                _this.$store.commit('set_loginpwd', _this.login_info.pwd)
+                _this.is_login = true;
+                _this.userinfo.name = res.data.name;
+                _this.userinfo.avatarurl = res.data.avatarurl;
+               }
+               else{
+                   alert("用户不存在或密码错误");
+               }
+            }).catch((err)=>{
+                console.log(err)
+            })
+            
+        },
+        enter_register() {
+            this.$router.push("/register")
+        },
+        get_userinfo() {
+            var _this = this;
+            this.$axios.post(this.GLOBAL.serverSrc+"/getuserinfo_basic",
+                {"phone":_this.$store.state.login_id}
+            ).then(function(res){
+               console.log(res.data);
+               _this.userinfo = res.data;
+            }).catch((err)=>{
+                console.log(err)
+            })
+        },
     }
 }
 </script>

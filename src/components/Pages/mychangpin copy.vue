@@ -46,7 +46,62 @@ export default{
             imgwidth:window.innerWidth*1/3+"px",
             imgheight:Math.max(window.innerWidth*1/3-40,window.innerHeight/7)+"px",
             collectdatas:[
-               
+                {
+                    name: '名古屋',
+                    autor: '元宇宙出品',
+                    price: "37.0元",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/edab89e92578af9b97dd71f62c074faa.gif"     
+                },
+                {
+                    name: '世外桃源',
+                    autor: 'Jack',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=1",
+                    imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/fdb29649f966b9421a8036779df358aa.gif"     
+                },
+                {
+                    name: '太空基地',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=2",
+                    imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/e2f2bee01c7b4d12841e055b9ef6f5b8.gif"     
+                },
+                {
+                    name: 'test',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                },
+                {
+                    name: 'test',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                },
+                {
+                    name: 'test',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                },
+                {
+                    name: 'test',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                },
+                {
+                    name: 'test',
+                    autor: 'tom',
+                    price: "49.0",
+                    path: "/changpindetail?changpin=0",
+                    imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"     
+                },
             ]
         }
     },
@@ -57,7 +112,7 @@ export default{
     methods: {
         get_collect_data() {
             var vm = this;
-            this.$axios.post(this.GLOBAL.serverSrc+"/getchangpinfo_bypositionlist",
+            this.$axios.post(this.GLOBAL.serverSrc+"/getchangpinfo_bycollectlist",
                 {
                     "phone": this.$store.state.login_id
                 }
