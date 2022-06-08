@@ -7,7 +7,8 @@
         </div>
           <div class="content" style="text-align:center;margin-top:10rem;">
             <el-input prefix-icon="el-icon-user-solid" v-model="registerinfo.phone" placeholder="请输入手机号"></el-input>
-            <el-input v-model="registerinfo.pwd" style="border:none" type="password" prefix-icon="el-icon-unlock" show-password placeholder="请输入密码"></el-input>
+            <el-input v-model="registerinfo.pwd" style="border:none;margin-top:1rem;" type="password" prefix-icon="el-icon-unlock" show-password placeholder="请输入密码"></el-input>
+            <el-input style="border:none;margin-top:1rem;" prefix-icon="el-icon-notebook-1" v-model="registerinfo.bycode" placeholder="请输入邀请码"></el-input>
             <div class="loginbtn" style="text-align:center;margin-top:1rem;">
                 <el-button type="primary" style="width:100%" @click="register">注册</el-button>
             </div>
@@ -22,7 +23,8 @@ export default {
         return {
             registerinfo: {
                 phone:"",
-                pwd: ""
+                pwd: "",
+                bycode:""
             }
         }
     },
@@ -36,7 +38,13 @@ export default {
                 _this.registerinfo
             ).then(function(res){
                console.log(res.data);
-               alert("注册成功,请返回登录页面登录");
+               if(res.data=="success"){
+                   alert("注册成功,请返回登录页面登录");
+               }
+               else{
+                   alert(res.data);
+               }
+               
                
             }).catch((err)=>{
                 console.log(err)

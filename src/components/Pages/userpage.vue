@@ -120,7 +120,8 @@ export default{
         }
     },
     created() {
-        if(this.$store.state.login_id=='0') {
+        console.log("loginid",this.$store.state.login_id);
+        if(this.$store.state.login_id==null) {
             this.is_login = false;
         }
         else {
@@ -157,6 +158,8 @@ export default{
                if(res.data.length!=0){
                 _this.$store.commit('set_loginid',_this.login_info.phone)
                 _this.$store.commit('set_loginpwd', _this.login_info.pwd)
+                localStorage.setItem("phone",_this.login_info.phone)
+                localStorage.setItem("pwd", _this.login_info.pwd)
                 _this.is_login = true;
                 _this.userinfo.name = res.data.name;
                 _this.userinfo.avatarurl = res.data.avatarurl;

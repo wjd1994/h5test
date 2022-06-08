@@ -1,8 +1,8 @@
 <template>
 <div class="index">
-    <div class="search" style="margin-top:1rem">
+    <!-- <div class="search" style="margin-top:1rem">
         <el-input v-model="searchdata" placeholder="请输入搜索内容"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input>
-    </div>
+    </div> -->
     <div class="itemtitle"> 
         <span style="font-size:1rem"><i class="el-icon-s-goods" style="color:aqua"></i>数字藏品</span>
         <span style="font-size:0.8rem" @click="switch_to_changpin">查看更多<i class="el-icon-right" style="color:gray"></i></span>
@@ -45,22 +45,6 @@ export default{
         return {
             searchdata: "",
             imgwidth:window.innerWidth*4/5+"px",
-            changpindatas:[
-                {
-                    name: '名古屋',
-                    autor: '元宇宙出品',
-                    price: "37.0元",
-                    path: "/changpindetail?changpin=0",
-                    imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/edab89e92578af9b97dd71f62c074faa.gif"     
-                },
-                {
-                    name: '世外桃源',
-                    autor: 'Jack',
-                    price: "49.0",
-                    path: "/changpindetail?changpin=1",
-                    imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/fdb29649f966b9421a8036779df358aa.gif"     
-                },
-            ],
             changpindatas:[]
         }
     },
@@ -86,7 +70,7 @@ export default{
             this.$router.push("/manghe");
         },
         switch_changpindetail(item) {
-            this.$router.push("changpindetail?changpinid="+item.id+"&originurl=index");
+            this.$router.push("changpindetail?changpinid="+item.positionid+"&originurl=index");
         },
     }
 }

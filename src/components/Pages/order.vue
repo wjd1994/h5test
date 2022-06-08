@@ -15,10 +15,10 @@
                             <span class="autortitle">作者</span>
                             <span class="autorvalue">{{item.autor}}</span>
                         </div>
-                        <div class="price">
+                        <!-- <div class="price">
                             <span class="pricetitle">价格</span>
                             <span class="pricevalue">{{item.price}}</span>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@ export default{
             this.$router.push('/user')
         },
         switch_changpindetail(item) {
-            this.$router.push("changpindetail?changpinid="+item.id+"&originurl=order");
+            // this.$router.push("changpindetail?changpinid="+item.id+"&originurl=order");
         },
        
     }

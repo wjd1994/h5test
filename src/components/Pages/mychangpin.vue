@@ -17,7 +17,7 @@
                         </div>
                         <div class="price">
                             <span class="pricetitle">价格</span>
-                            <span class="pricevalue">{{item.price}}</span>
+                            <span class="pricevalue">￥{{item.price}}</span>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ export default{
             this.$router.push('/user')
         },
         switch_changpindetail(item) {
-            this.$router.push("changpindetail?changpinid="+item.id+"&originurl=mychangpin");
+            this.$router.push("changpindetail?changpinid="+item.positionid+"&originurl=mychangpin");
         },
     }
 }

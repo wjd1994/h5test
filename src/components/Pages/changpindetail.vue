@@ -19,7 +19,12 @@
                     <span class="pricevalue">￥{{changpindata.price}}</span>
                 </div>
                 <div class="buybtn">
-                    <el-button @click="submitbuy" style="width:100%;border-radius: 0.5rem;margin-top:0.5rem;" >购买</el-button>
+                    <span v-if="is_self==true">
+                        <el-button v-if="changpindata.status=='1'" @click="cancel_sell" style="width:100%;border-radius: 0.5rem;margin-top:0.5rem;" >取消出售</el-button>
+                        <el-button v-if="changpindata.status=='2'" @click="sellFormVisible=true" style="width:100%;border-radius: 0.5rem;margin-top:0.5rem;" >出售</el-button>
+                    </span>
+                    <span v-else><el-button  @click="submitbuy" style="width:100%;border-radius: 0.5rem;margin-top:0.5rem;" >购买</el-button></span>
+                    
                 </div>
             </div>
             <div class="detail" >
@@ -31,6 +36,18 @@
             <el-page-header style="position:absolute;left:0px;margin-top:0.5rem" class="elpageheader"  @back="goBack" content="商品详情">
             </el-page-header>
         </div>
+        <el-dialog title="出售"  width="90%" :visible.sync="sellFormVisible" :close-on-click-modal="false">
+            <el-form :model="sellinfo">
+                <el-form-item fixed label="输入出售价格：" label-width="8rem">
+                    <el-input v-model="sellinfo.price" autocomplete="off"></el-input>
+                </el-form-item>
+                
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="sellFormVisible=false">取 消</el-button>
+                <el-button type="primary" @click="sell">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -41,21 +58,20 @@ export default {
         return {
             origin: '',
             imgwidth:window.innerWidth*4/5+"px",
-            changpindata: {
-                name: 'test',
-                autor: 'tom',
-                price: "49.0",
-                imgurl: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-                detail: "测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例测试用例"
+            changpindata: {},
+            sellinfo:{
+                "price":""
             },
-            changpindata: {}
+            is_self:false,
+            sellFormVisible:false,
+            changpinid:"",
         }
     },
     created() {
         var current_url = window.location.href;
         this.origin = current_url.split("originurl=")[1];
-        let changpinid = current_url.split("changpinid=")[1].split("&originurl")[0];
-        this.get_changpindetail(changpinid);
+        this.changpinid = current_url.split("changpinid=")[1].split("&originurl")[0];
+        this.get_changpindetail(this.changpinid);
 
     },
     methods: {
@@ -64,7 +80,7 @@ export default {
              let requestdata = {
                 "id":id
              }
-             if(this.$store.state.login_id!='0'){
+             if(this.$store.state.login_id!=null){
                  requestdata["phone"] = this.$store.state.login_id
              }
             this.$axios.post(this.GLOBAL.serverSrc+"/getchangpin_byid",
@@ -72,6 +88,10 @@ export default {
             ).then(function(res){
                console.log(res.data);
                vm.changpindata = res.data;
+ 
+               if(vm.changpindata.phone==vm.$store.state.login_id){
+                   vm.is_self = true;
+               }
             }).catch((err)=>{
                 console.log(err)
             })
@@ -80,7 +100,63 @@ export default {
             this.$router.push("/"+this.origin)
         },
         submitbuy() {
-            alert("暂不支持")
+            var vm = this;
+            this.$axios.post(this.GLOBAL.serverSrc+"/buy_changpin",
+                {
+                    "phone":vm.$store.state.login_id,
+                    "pwd": vm.$store.state.login_pwd,
+                    "product_id": vm.changpindata.positionid
+                }
+            ).then(function(res){
+               console.log(res.data);
+               
+               alert(res.data);
+
+            }).catch((err)=>{
+                console.log(err)
+            })
+            
+        },
+        sell() {
+            var vm = this;
+            this.$axios.post(this.GLOBAL.serverSrc+"/sell_changpin",
+                {
+                    "phone":vm.$store.state.login_id,
+                    "pwd": vm.$store.state.login_pwd,
+                    "product_id": vm.changpindata.positionid,
+                    "price": vm.sellinfo.price,
+                }
+            ).then(function(res){
+               console.log(res.data);
+               vm.sellFormVisible = false;
+               alert(res.data);
+               
+               location.reload();
+               vm.$router.go(0);
+            }).catch((err)=>{
+                console.log(err)
+            })
+            
+        },
+        cancel_sell() {
+          var vm = this;
+            this.$axios.post(this.GLOBAL.serverSrc+"/cancel_sell_changpin",
+                {
+                    "phone":vm.$store.state.login_id,
+                    "pwd": vm.$store.state.login_pwd,
+                    "product_id": vm.changpindata.positionid,
+                }
+            ).then(function(res){
+               console.log(res.data);
+               vm.sellFormVisible = false;
+               alert(res.data);
+               
+               location.reload();
+               vm.$router.go(0);
+            }).catch((err)=>{
+                console.log(err)
+            })
+            
         },
         submit_collect() {
             this.changpindata.is_collect = 1;

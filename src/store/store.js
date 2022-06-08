@@ -6,8 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state:{
         suitePath: "",
-        login_id: "0",
-        login_pwd: "",
+        login_id: localStorage.getItem("phone"),
+        login_pwd: localStorage.getItem("pwd"),
        
     },
     mutations:{

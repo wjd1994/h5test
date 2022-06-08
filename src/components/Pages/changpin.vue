@@ -1,8 +1,8 @@
 <template>
 <div class="changpin">
-    <div class="search" style="margin-top:1rem">
+    <!-- <div class="search" style="margin-top:1rem">
         <el-input v-model="searchdata" placeholder="请输入物品"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input>
-    </div>
+    </div> -->
     <div v-for="(item,index) in changpindatas" :key="index" class="item" @click="switch_changpindetail(item)">
         <div class="itemcard">
 
@@ -37,15 +37,6 @@ export default{
             searchdata: "",
             imgwidth:window.innerWidth*1/3+"px",
             imgheight:Math.max(window.innerWidth*1/3-40,window.innerHeight/7)+"px",
-            changpindatas:[
-                {
-                    name: '名古屋',
-                    autor: '元宇宙出品',
-                    price: "37.0元",
-                    path: "/changpindetail?changpin=0",
-                    imgurl: "https://kuakeshucang.oss-cn-beijing.aliyuncs.com/uploads/20220429/edab89e92578af9b97dd71f62c074faa.gif"     
-                }
-            ],
             changpindatas:[]
         }
     },
@@ -56,7 +47,7 @@ export default{
     methods: {
         get_changpin_data() {
             var vm = this;
-            this.$axios.post(this.GLOBAL.serverSrc+"/getallchangpin",
+            this.$axios.post(this.GLOBAL.serverSrc+"/query_shichang_changpin",
                 {}
             ).then(function(res){
                console.log(res.data);
@@ -66,7 +57,8 @@ export default{
             })
         },
         switch_changpindetail(item) {
-            this.$router.push("changpindetail?changpinid="+item.id+"&originurl=changpin");
+            console.log("data",item);
+            this.$router.push("changpindetail?changpinid="+item.positionid+"&originurl=changpin");
         },
       
 

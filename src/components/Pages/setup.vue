@@ -106,8 +106,10 @@ export default {
             })
         },
         unlogin() {
-            this.$store.commit('set_loginid','0')
+            this.$store.commit('set_loginid',null)
+            this.$store.commit('set_loginpwd', null)
             this.$router.push('/user');
+            localStorage.clear();
         }
     }
 }
