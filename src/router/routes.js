@@ -1,6 +1,13 @@
 import MainMenu from '../components/Menu/MainMenu.vue'
+import HomePage from '../components/Pages/home.vue'
+
 
 const routes=[
+    {
+      path:'/home',
+      name:'/home',
+      component: HomePage
+    },
     {
         path: '/',
         component: MainMenu,
@@ -76,6 +83,12 @@ const routes=[
               name: 'register',
               meta:{title: '注册',index:0},
               component: ()=>import('../components/Pages/register.vue')
+            },
+            {
+              path: 'moneyrecord',
+              name: 'moneyrecord',
+              meta:{title: '交易明细',index:0},
+              component: ()=>import('../components/Pages/moneyrecord.vue')
             },
           ]
       }

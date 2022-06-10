@@ -105,28 +105,18 @@ export default {
             this.personinfo = this.personinfo1;
             
         },
-        submit_idnum() {
-            var a = prompt("请输入真实身份证号"); 
-            if(a){
-                this.personinfo.idnum = a;
-                this.is_mod_flag = true;
-            }
-        },
-        submit_cardnum() {
-            var a = prompt("请输入银行卡号"); 
-            if(a){
-                this.personinfo.cardnum = a;
-                this.is_mod_flag = true;
-            }
-        },
         sumbit_personinfo() {
+            var vm = this;
             this.is_mod_flag = false;
             this.$axios.post(this.GLOBAL.serverSrc+"/saveuserinfoshimin",
                 this.personinfo
             ).then(function(res){
                console.log(res.data);
                if(res.data=='success'){
-                   alert("保存成功");
+                   vm.$message({
+                        message: "保存成功",
+                        type: 'success'
+                    });
                }
 
             }).catch((err)=>{

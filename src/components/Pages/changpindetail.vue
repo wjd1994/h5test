@@ -1,7 +1,10 @@
 <template>
-    <div class="changpindetail">
-        
-        <div class="content">
+    <div class="changpindetail" style="display:flex;flex-direction:column;height:100%;">
+        <div class="header" style="height: 3rem;width:100%;background-color: white;">
+            <el-page-header style="position:absolute;left:0px;margin-top:0.5rem" class="elpageheader"  @back="goBack" content="商品详情">
+            </el-page-header>
+        </div>
+        <div class="content" style="overflow-y:scroll;height:90vh;">
             <div class="proinfo">
                 <div class="title" style="display:flex;justify-content:space-between;">
                     <p style="font-size:1.5rem;">{{changpindata.name}}</p>
@@ -31,11 +34,9 @@
                 <p style="color:orange;text-align: center;font-size:1.1rem;"><i class="el-icon-orange"></i>作品描述</p>
                 <p style="font-size:0.9rem">{{changpindata.detail}}</p>
             </div>
+            <div style="height:4rem"></div>
         </div>
-        <div class="header" style="position: fixed;left:0rem;top:-1rem;height: 3rem;width:100%;background-color: white;">
-            <el-page-header style="position:absolute;left:0px;margin-top:0.5rem" class="elpageheader"  @back="goBack" content="商品详情">
-            </el-page-header>
-        </div>
+        
         <el-dialog title="出售"  width="90%" :visible.sync="sellFormVisible" :close-on-click-modal="false">
             <el-form :model="sellinfo">
                 <el-form-item fixed label="输入出售价格：" label-width="8rem">
@@ -109,8 +110,14 @@ export default {
                 }
             ).then(function(res){
                console.log(res.data);
-               
-               alert(res.data);
+               vm.$message({
+                    message: res.data,
+                    type: 'success'
+                });
+               setTimeout(()=>{
+                    location.reload();
+                    vm.$router.go(0);
+                },1000)
 
             }).catch((err)=>{
                 console.log(err)
@@ -119,6 +126,7 @@ export default {
         },
         sell() {
             var vm = this;
+
             this.$axios.post(this.GLOBAL.serverSrc+"/sell_changpin",
                 {
                     "phone":vm.$store.state.login_id,
@@ -129,10 +137,16 @@ export default {
             ).then(function(res){
                console.log(res.data);
                vm.sellFormVisible = false;
-               alert(res.data);
+               vm.$message({
+                    message: res.data,
+                    type: 'success'
+                });
+                setTimeout(()=>{
+                    location.reload();
+                    vm.$router.go(0);
+                },1000)
                
-               location.reload();
-               vm.$router.go(0);
+           
             }).catch((err)=>{
                 console.log(err)
             })
@@ -149,10 +163,15 @@ export default {
             ).then(function(res){
                console.log(res.data);
                vm.sellFormVisible = false;
-               alert(res.data);
+               vm.$message({
+                    message: res.data,
+                    type: 'success'
+                });
                
-               location.reload();
-               vm.$router.go(0);
+               setTimeout(()=>{
+                    location.reload();
+                    vm.$router.go(0);
+                },1000)
             }).catch((err)=>{
                 console.log(err)
             })
@@ -170,10 +189,7 @@ export default {
 </script>
 <style lang="less" scoped>
 
-.content {
-    margin-top:3rem;
-    
-}
+
 .showimg {
     text-align: center;
     .img {

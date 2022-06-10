@@ -1,9 +1,10 @@
 <template>
   <div class="mainmenu">
     <div style="width:100%;">
-      <div style="width:90%;margin-left:5%;">
-        <router-view style="padding-bottom: 4rem" ></router-view>
+      <div style="width:90%;margin-left:5%;padding-bottom: 0rem">
+        <router-view style="padding-bottom: 0rem" ></router-view>
       </div>
+     
     </div>
     <div class="footmenu">
       <span v-for="(menu,i) in menuitem" @click="select_menu(i)" :key="i" :class="{'menuitemactive':menu.isactive,'menuitem':!menu.isactive}">
@@ -53,7 +54,11 @@ export default {
     
   },
   created(){
-    
+    var url = window.location.href;
+    if(url.split("/#/")[1]==""){
+ this.$router.push('/home')
+    }
+   
   
 
   },

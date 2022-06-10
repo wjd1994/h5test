@@ -79,7 +79,7 @@ export default {
         goBack() {      
             this.$router.push("/user")
         },
-         cancel_mod() {
+        cancel_mod() {
             this.nameFormVisible = false;
             this.personinfo1 = this.personinfo;
         },
@@ -92,13 +92,17 @@ export default {
             this.$router.push("/shimin");
         },
         sumbit_personinfo() {
+            var vm = this;
             this.is_mod_flag = false;
             this.$axios.post(this.GLOBAL.serverSrc+"/saveuserinfobasic",
                 this.personinfo
             ).then(function(res){
                console.log(res.data);
                if(res.data=='success'){
-                   alert("保存成功");
+                   vm.$message({
+                        message: "保存成功",
+                        type: 'success'
+                    });
                }
 
             }).catch((err)=>{

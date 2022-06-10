@@ -1,7 +1,10 @@
 <template>
 <div class="mychangpin">
-    
-    <div class="content">
+    <div class="header" style="height: 3rem;width:100%;background-color: white;">
+            <el-page-header style="position:absolute;left:0px;margin-top:0.5rem" class="elpageheader"  @back="goBack" content="商品详情">
+            </el-page-header>
+        </div>
+    <div class="content" style="overflow-y:scroll;height:90vh;">
         <div v-for="(item,index) in collectdatas" :key="index" class="item" @click="switch_changpindetail(item)">
             <div class="itemcard">
 
@@ -28,10 +31,7 @@
     <div class="mangheitem" style="margin-top:5rem;text-align:center">
         暂无更多
     </div>
-    <div class="header" style="position: fixed;left:0rem;top:-1rem;height: 3rem;width:100%;background-color: white;">
-            <el-page-header style="position:absolute;left:0px;margin-top:0.5rem;margin-left:0.8rem" class="elpageheader"  @back="goBack" content="我的藏品">
-            </el-page-header>
-    </div>
+
 
      
 </div>
@@ -79,9 +79,7 @@ export default{
 </script>
 
 <style lang="less" scoped>
-.content {
-    margin-top:4rem;
-}
+
 .item {
     margin-top:0.8rem;
     
